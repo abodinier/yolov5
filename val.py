@@ -329,6 +329,7 @@ def parse_opt():
     opt = parser.parse_args()
     opt.data = check_yaml(opt.data)  # check YAML
     opt.save_json |= opt.data.endswith('coco.yaml')
+    opt.save_json = True
     opt.save_txt |= opt.save_hybrid
     print_args(FILE.stem, opt)
     return opt
