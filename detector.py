@@ -20,19 +20,17 @@ from utils.general import (
 from utils.torch_utils import select_device
 
 class Detector:
-    def __init__(self, config, weights):
+    def __init__(self, config):
         """Init method that store the config dict and loads the model
 
         Args:
             config (dict): Configuration dict.
-            weights (pathlib.Path): Path to the torch model weights (.pt)
         """
         self.config = config
-        self.weights_path = weights
         
         # Load model
         self.device = select_device('cpu')
-        self.model = DetectMultiBackend(weights, device=self.device, dnn=False)
+        self.model = DetectMultiBackend(config["weights"], device=self.device, dnn=False)
         self.stride, self.names, self.pt, self.jit, self.onnx, self.engine = self.model.stride, self.model.names, self.model.pt, self.model.jit, self.model.onnx, self.model.engine
     
     @torch.no_grad()
